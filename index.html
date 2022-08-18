@@ -13,8 +13,8 @@
     </header>
     <main class="text-center mt-5">
         <section class="input d-flex justify-content-center align-items-center">
-            <input type="text" name="" class="w-50 p-1 fs-5" id="todoinput" placeholder="Enter To Do here...">
-            <button class="btn btn-outline-danger fs-5 fw-bold">Add To Do</button>
+            <input type="text" name="" class="w-50 p-1 fs-5 rounded" id="todoinput" placeholder="Enter To Do here...">
+            <button class="btn btn-outline-danger fs-5 fw-bold" id="todoBtn">Add To Do</button>
         </section>
         <section class="container mt-4">
             <table class="table table-hover">
@@ -25,13 +25,7 @@
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th>1</th>
-                    <td>Mark</td>
-                    <td><button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger">Del</button></td>
-                  </tr>
+                <tbody id="todoContainer">
                 </tbody>
               </table>
         </section>
@@ -39,5 +33,30 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script>
+      const todoInput = document.getElementById('todoinput');
+      const todoContainer = document.getElementById('todoContainer');
+
+      let counter = 0;
+      document.getElementById('todoBtn').addEventListener('click',()=>{
+        counter++;
+        const todoCreate = document.createElement('tr');
+        todoCreate.classList.add('todoAll');
+        todoCreate.innerHTML = `
+          <th>${counter}</th>
+          <td>${todoInput.value}</td>
+          <td><button class="btn btn-info px-2">Edit</button>
+          <button class="btn btn-danger px-2 delBtn">Del</button></td>
+        `;
+        todoContainer.appendChild(todoCreate);
+        // todo.innerText = todoInput.value;
+        const delBtn = document.getElementsByClassName('delBtn');
+        for(const d of delBtn){
+          d.addEventListener('click',(event)=>{
+          event.target.parentNode.parentNode.style.display = 'none';
+          })
+        }
+      });
+    </script>
   </body>
 </html>
